@@ -36,13 +36,20 @@ class MainWindow(tkinter.Tk):
 
     def __add_screens(self):
         self.screens = dict()
+
         self.screens[screens.HOME_SCREEN] = screens.HomeScreen(self)
-        self.screens[screens.MERGE_SCREEN] = screens.MergeScreen(self)
-        self.screens[screens.SPLIT_SCREEN] = screens.SplitScreen(self)
+
+        self.screens[screens.MERGE_SCREEN] = screens.MergePDFScreen(self)
+        self.screens[screens.SPLIT_SCREEN] = screens.SplitPDFScreen(self)
+        self.screens[screens.REMOVE_PAGES_SCREEN] = screens.RemovePagesScreen(self)
+
+        self.screens[screens.DOC_TO_PDF_SCREEN] = screens.DocToPDFScreen(self)
+        self.screens[screens.IMAGES_TO_PDF_SCREEN] = screens.ImagesToPDFScreen(self)
+
         self.screens[screens.ABOUT_SCREEN] = screens.AboutScreen(self)
 
         for screen in self.screens.values():
-            screen.grid(row=1, sticky="nsew")
+            screen.grid(row=1, sticky="nsew", padx=5, pady=5)
 
     def show_screen(self, name):
         if name == screens.HOME_SCREEN:
@@ -51,8 +58,3 @@ class MainWindow(tkinter.Tk):
             self.back_button.grid()
         self.title_label['text'] = name
         self.screens[name].tkraise()
-
-
-if __name__ == "__main__":
-    root = MainWindow()
-    root.mainloop()

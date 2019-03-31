@@ -13,8 +13,12 @@ class HomeScreen(ttk.Frame):
 
         self.__add_button(0, screens.MERGE_SCREEN)
         self.__add_button(1, screens.SPLIT_SCREEN)
-        self.grid_rowconfigure(2, minsize=20)
-        self.__add_button(3, screens.ABOUT_SCREEN)
+        self.__add_button(2, screens.REMOVE_PAGES_SCREEN)
+        self.grid_rowconfigure(3, minsize=20)
+        self.__add_button(4, screens.DOC_TO_PDF_SCREEN)
+        self.__add_button(5, screens.IMAGES_TO_PDF_SCREEN)
+        self.grid_rowconfigure(6, minsize=20)
+        self.__add_button(7, screens.ABOUT_SCREEN)
 
     def __add_button(self, row_number, screen):
         func = partial(self.parent.show_screen, screen)
