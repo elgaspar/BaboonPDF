@@ -8,6 +8,7 @@ class MultipleFileInput(ttk.Frame):
     def __init__(self, parent, filetype):
         if filetype != 'pdf' and filetype != 'images':
             raise Exception("Invalid value for argument 'filetype'. Use 'pdf' or 'images' instead.")
+
         super().__init__(parent, height=5)
         self.parent = parent
         self.filetype = filetype
@@ -18,7 +19,7 @@ class MultipleFileInput(ttk.Frame):
         self.__add_bottom_button()
 
     def __add_tree(self):
-        self.tree = ttk.Treeview(self, height=5)
+        self.tree = ttk.Treeview(self, height=10)
 
         self.tree['columns'] = ('#', 'filename', 'pages', 'size', 'path')
         self.tree.column('#', width=25, minwidth=25, stretch=tkinter.NO)
@@ -52,13 +53,13 @@ class MultipleFileInput(ttk.Frame):
         self.move_up_button.grid(row=0, column=0, padx=(0, 5), pady=5)
 
         self.move_down_button = ttk.Button(self.buttons_frame, text="Move Down", command=self.__move_down)
-        self.move_down_button.grid(row=0, column=1, padx=5, pady=5)
+        self.move_down_button.grid(row=0, column=1, padx=(0, 5), pady=5)
 
         self.remove_button = ttk.Button(self.buttons_frame, text="Remove", command=self.__remove_selected)
-        self.remove_button.grid(row=0, column=2, padx=5, pady=5)
+        self.remove_button.grid(row=0, column=2, padx=(0, 5), pady=5)
 
         self.remove_all_button = ttk.Button(self.buttons_frame, text="Remove All", command=self.__remove_all)
-        self.remove_all_button.grid(row=0, column=3, padx=5, pady=5)
+        self.remove_all_button.grid(row=0, column=3, padx=(0, 5), pady=5)
 
         self.buttons_frame.grid(row=0, column=0, sticky='w')
 
