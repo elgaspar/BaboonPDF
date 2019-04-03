@@ -138,7 +138,7 @@ class MultipleFileInput(ttk.Frame):
     def get_filepaths(self):
         filepaths = list()
         for item_id in self.tree.get_children(''):
-            if self.filetype == 'images':
+            if self.filetype == 'pdf':
                 i = 4
             elif self.filetype == 'images':
                 i = 3

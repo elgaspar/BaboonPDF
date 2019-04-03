@@ -15,7 +15,7 @@ class MainWindow(tkinter.Tk):
 
     def __add_window_properties(self):
         self.title("BaboonPDF")
-        self.geometry("400x500")  # TODO: set proper size
+        # self.geometry("400x500")  # TODO: set proper size
         self.resizable(0, 0)
         # TODO: add icon
         self.grid_columnconfigure(0, weight=1)

@@ -12,19 +12,21 @@ class OutputSelectWidget(ttk.Frame):
         self.parent = parent
         self.output_type = output_type
 
-        # TODO: label
+        label = ttk.Label(self, text='Output:')
+        label.grid(row=0, column=0, sticky='w')
 
         self.filename = tkinter.StringVar()
         self.output = ttk.Entry(self, textvariable=self.filename, state=tkinter.DISABLED)
-        self.output.grid(row=0, column=0, sticky='we', padx=(0, 5))
+        self.output.grid(row=1, column=0, sticky='we', padx=(0, 5))
 
         self.grid_columnconfigure(0, weight=1)
 
         self.browse_button = ttk.Button(self, text='Browse', command=self.__browse)
-        self.browse_button.grid(row=0, column=1)
+        self.browse_button.grid(row=1, column=1)
 
     def __browse(self):
-        file = filedialog.asksaveasfilename(parent=self.parent,
+        # TODO: run fiiledialog depending on output_type
+        path = filedialog.asksaveasfilename(parent=self.parent,
                                             filetypes=[('PDF files', '.pdf')],
                                             defaultextension='.pdf')
-        self.filename.set(file)
+        self.filename.set(path)
