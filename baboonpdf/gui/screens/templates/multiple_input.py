@@ -1,17 +1,20 @@
 import tkinter
 from tkinter import ttk, filedialog
-import os, re
+import os
+import re
+import baboonpdf.gui.screens.templates as templates
 
 
-class MultipleFileInput(ttk.Frame):
+class MultipleInput(ttk.Frame):
 
-    def __init__(self, parent, filetype):
-        if filetype != 'pdf' and filetype != 'images':
-            raise Exception("Invalid value for argument 'filetype'. Use 'pdf' or 'images' instead.")
+    def __init__(self, parent, input_type):
+        if input_type not in templates.VALID_INPUT_TYPES:
+            msg = "Invalid value for argument 'input_type'. Valid values: %s" % str(templates.VALID_INPUT_TYPES)[1:-1]
+            raise Exception(msg)
 
         super().__init__(parent, height=5)
         self.parent = parent
-        self.filetype = filetype
+        self.input_type = input_type
 
         self.__add_tree()
         self.__add_tree_scrollbar()
@@ -24,14 +27,14 @@ class MultipleFileInput(ttk.Frame):
         self.tree['columns'] = ('#', 'filename', 'pages', 'size', 'path')
         self.tree.column('#', width=25, minwidth=25, stretch=tkinter.NO)
         self.tree.column('filename', width=100, minwidth=60, stretch=tkinter.NO)
-        if self.filetype == 'pdf':
+        if self.input_type == 'pdf':
             self.tree.column('pages', width=50, minwidth=40, stretch=tkinter.NO)
         self.tree.column('size', width=50, minwidth=40, stretch=tkinter.NO)
         self.tree.column('path', width=50, minwidth=40)
 
         self.tree.heading('#', text='#', anchor=tkinter.W)
         self.tree.heading('filename', text='Filename', anchor=tkinter.W)
-        if self.filetype == 'pdf':
+        if self.input_type == 'pdf':
             self.tree.heading('pages', text='Pages', anchor=tkinter.W)
         self.tree.heading('size', text='Size', anchor=tkinter.W)
         self.tree.heading('path', text='Path', anchor=tkinter.W)
@@ -65,7 +68,7 @@ class MultipleFileInput(ttk.Frame):
 
     def __add_bottom_button(self):
         self.add_button = ttk.Button(self, text="Add File(s)", command=self.__add)
-        self.add_button.grid(row=2, column=0, sticky='e', pady=5)
+        self.add_button.grid(row=2, column=0, columnspan=2, sticky='e', pady=5)
 
     def __move_up(self):
         # TODO
@@ -96,9 +99,9 @@ class MultipleFileInput(ttk.Frame):
             self.tree.delete(index)
 
     def __add(self):
-        if self.filetype == 'pdf':
+        if self.input_type == 'pdf':
             valid_filetypes = [('PDF files', '.pdf')]
-        elif self.filetype == 'images':
+        elif self.input_type == 'image':
             valid_filetypes = [('Image files', ('.jpg', '.bmp', '.png', '.jpeg', '.tif'))]  # TODO: Do all these formats work with my function?
         files = filedialog.askopenfilenames(parent=self.parent,
                                             title="Please select one or more files:",
@@ -107,10 +110,10 @@ class MultipleFileInput(ttk.Frame):
         for filepath in files:
             filename = os.path.basename(filepath)
             size = self.__generate_size_string(os.path.getsize(filepath))
-            if self.filetype == 'pdf':
+            if self.input_type == 'pdf':
                 pages_count = self.__get_pdf_page_count(filepath)
                 values = (index, filename, pages_count, size, filepath)
-            elif self.filetype == 'images':
+            elif self.input_type == 'image':
                 values = (index, filename, size, filepath)
             self.tree.insert('', 'end', values=values)
             index += 1
@@ -138,9 +141,13 @@ class MultipleFileInput(ttk.Frame):
     def get_filepaths(self):
         filepaths = list()
         for item_id in self.tree.get_children(''):
-            if self.filetype == 'pdf':
+            if self.input_type == 'pdf':
                 i = 4
-            elif self.filetype == 'images':
+            elif self.input_type == 'image':
                 i = 3
             filepaths.append(self.tree.item(item_id)['values'][i])
         return filepaths
+
+    @property
+    def value(self):
+        return self.get_filepaths()

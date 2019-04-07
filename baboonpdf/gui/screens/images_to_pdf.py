@@ -1,14 +1,17 @@
 from tkinter import ttk
-from baboonpdf.gui.screens.multiple_file_input import MultipleFileInput
+from baboonpdf.gui.screens.templates import ScreenTemplate
 
 
-class ImagesToPDFScreen(ttk.Frame):
+class ImagesToPDFScreen(ScreenTemplate):
 
     def __init__(self, parent):
-        super().__init__(parent)
-
-        self.filelist_frame = MultipleFileInput(self, 'images')
-        self.filelist_frame.pack(fill='x')
+        super().__init__(parent, input_type='image', multiple_input=True, output_type='file', run_command=self.__convert)
 
         # TODO: add content
-        ttk.Label(self, text="TODO (images to pdf)").pack()
+        ttk.Label(self.settings_frame, text="TODO (settings of images to pdf)").pack()
+
+    def __convert(self):
+        # TODO: call function of core
+        print("running: ", "ImagesToPDFScreen")
+        print("input: ", self.input)
+        print("output: ", self.output)
