@@ -1,5 +1,5 @@
 from tkinter import ttk
-from baboonpdf.gui.screens.templates import ScreenTemplate
+from baboonpdf.gui.screens.template import ScreenTemplate
 
 
 class AboutScreen(ttk.Frame):

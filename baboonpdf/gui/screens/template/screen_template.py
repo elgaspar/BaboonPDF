@@ -1,8 +1,8 @@
 from tkinter import ttk
-from baboonpdf.gui.screens.templates.multiple_input import MultipleInput
-from baboonpdf.gui.screens.templates.single_input import SingleInput
-from baboonpdf.gui.screens.templates.output_select_widget import OutputSelectWidget
-from baboonpdf.gui.screens.templates.run_widget import RunWidget
+from baboonpdf.gui.screens.template.multiple_input import MultipleInput
+from baboonpdf.gui.screens.template.single_input import SingleInput
+from baboonpdf.gui.screens.template.output_select_widget import OutputSelectWidget
+from baboonpdf.gui.screens.template.run_widget import RunWidget
 
 
 class ScreenTemplate(ttk.Frame):

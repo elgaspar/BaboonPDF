@@ -1,13 +1,13 @@
 import tkinter
 from tkinter import ttk, filedialog
-import baboonpdf.gui.screens.templates as templates
+import baboonpdf.gui.screens.template as template
 
 
 class OutputSelectWidget(ttk.Frame):
 
     def __init__(self, parent, output_type):
-        if output_type not in templates.VALID_OUTPUT_TYPES:
-            msg = "Invalid value for argument 'output_type'. Valid values: %s" % str(templates.VALID_OUTPUT_TYPES)[1:-1]
+        if output_type not in template.VALID_OUTPUT_TYPES:
+            msg = "Invalid value for argument 'output_type'. Valid values: %s" % str(template.VALID_OUTPUT_TYPES)[1:-1]
             raise Exception(msg)
 
         super().__init__(parent)
