@@ -17,8 +17,8 @@ class OutputSelectWidget(ttk.Frame):
         label = ttk.Label(self, text='Output:')
         label.grid(row=0, column=0, sticky='w')
 
-        self.selected_path = tkinter.StringVar()
-        self.output = ttk.Entry(self, textvariable=self.selected_path, state=tkinter.DISABLED)
+        self._selected_path = tkinter.StringVar()
+        self.output = ttk.Entry(self, textvariable=self._selected_path, state=tkinter.DISABLED)
         self.output.grid(row=1, column=0, sticky='we', padx=(0, 5))
 
         self.grid_columnconfigure(0, weight=1)
@@ -33,8 +33,8 @@ class OutputSelectWidget(ttk.Frame):
                                                 defaultextension='.pdf')
         elif self.output_type == 'dir':
             path = filedialog.askdirectory(parent=self.parent)
-        self.selected_path.set(path)
+        self._selected_path.set(path)
 
     @property
     def value(self):
-        return self.selected_path.get()
+        return self._selected_path.get()

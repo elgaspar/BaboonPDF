@@ -21,7 +21,6 @@ class ScreenTemplate(ttk.Frame):
             self.__input = MultipleInput(self, input_type)
         else:
             self.__input = SingleInput(self, input_type)
-
         self.__input.grid(row=0, sticky='we')
 
     def __add_settings_empty_frame(self):
